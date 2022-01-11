@@ -7,7 +7,8 @@
     "start": "node ./server/server.js",
     "server": "nodemon  -x babel-node ./server/server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "database:seed": "babel-node ./server/seeds/seed.js"
   },
   "keywords": [],
   "author": "Gianluca Fuoco",
