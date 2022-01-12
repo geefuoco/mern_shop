@@ -14,19 +14,21 @@ const CartItem = () => {
           <div className="cart-item-name">Black Hoodie</div>
         </Link>
         <div className="cart-item-quantity">
-          Qty:
-          <select name="quantity">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
+          <div>
+            Qty:
+            <select name="quantity">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+          <button>
+            <i className="fas fa-trash-can"></i>
+          </button>
         </div>
         <div className="cart-item-price">Price: 49.99</div>
-        <button>
-          <i className="fas fa-trash-can"></i>
-        </button>
       </div>
     </div>
   );

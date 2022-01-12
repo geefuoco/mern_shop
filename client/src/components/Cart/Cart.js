@@ -5,7 +5,13 @@ import CartItem from "../CartItem/CartItem";
 const Cart = () => {
   return (
     <div className="cart-container">
-      <CartItem />
+      <div className="cart-items">
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+        <CartItem />
+      </div>
 
       <div className="checkout">
         <div>

@@ -8,6 +8,12 @@ const Home = () => {
       <h2 className="home-title">Shop new products</h2>
       <div className="product-display">
         <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
       </div>
     </div>
   );

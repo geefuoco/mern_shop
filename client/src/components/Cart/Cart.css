@@ -1,12 +1,15 @@
+.cart-container{
+  margin: 1rem;
+}
+
 .checkout{
-  position: fixed;
-  bottom: 5%;
-  left: 0;
-  width: 100%;
+  width: 90%;
+  margin: 1rem auto;
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  border: solid 1px black;
+  box-shadow: 0 .2rem .4rem black;
+
   gap: 1.5rem;
 }
 
@@ -29,4 +32,20 @@
 
 .checkout button:hover{
   background-color: #aaa;
+}
+
+@media screen and (min-width: 960px){
+  .checkout{
+    margin: none;
+    flex: 1 1 30%;
+    max-height: 150px;
+  }
+
+  .cart-items{
+    flex: 1 1 70%;
+  }
+
+  .cart-container{
+    display: flex;
+  }
 }

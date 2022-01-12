@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background-color: #777;
+  background-color: #141414;
   font-size: 1.4rem;
   z-index: 20;
 }
@@ -20,7 +20,7 @@
 .nav-link{
   display: block;
   padding: .5rem;
-  background-color: #a19e9e;
+  background-color: #777;
   border-radius: .4rem;
 }
 
