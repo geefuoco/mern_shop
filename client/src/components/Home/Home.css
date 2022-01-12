@@ -1,0 +1,35 @@
+.home-container{
+  max-width: 1000px;
+  margin: 1rem auto;
+}
+
+.home-title{
+  font-size: 1.5rem;
+  color: #171717;
+  margin-bottom: 1rem;
+  margin-top: .5rem;
+}
+
+.product-display{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 1rem;
+}
+
+@media screen and (max-width: 1200px){
+  .product-display{
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 960px){
+  .product-display{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 630px){
+  .product-display{
+    grid-template-columns: 1fr
+  }
+}

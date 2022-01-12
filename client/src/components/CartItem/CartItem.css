@@ -1,0 +1,21 @@
+.cart-item-container{
+  display: flex;
+  margin: 1rem auto;
+  width: 90%;
+  padding: 1rem;
+  box-shadow: 0 0.2rem 0.4rem black;
+  
+}
+
+.cart-item-container img{
+  max-height: 100px;
+  flex: 1 0 30%;
+}
+
+.info{
+  flex: 1 1 30%;
+}
+
+.cart-item-price{
+  font-weight: bold;
+}
