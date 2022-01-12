@@ -1,8 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
 
-const Sidebar = ({ show }) => {
+const Sidebar = () => {
+  const show = useSelector((state) => state.navMenu.value);
   const classList = ["sidebar"];
   if (show) {
     classList.push("show");
