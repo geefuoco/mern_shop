@@ -19,7 +19,7 @@ function App() {
           <Backdrop />
           <Routes>
             <Route path="/" element={<Home />}></Route>
-            <Route path="/product/:id" element={<ProductItem />}></Route>
+            <Route path="/products/:id" element={<ProductItem />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
           </Routes>
         </main>
