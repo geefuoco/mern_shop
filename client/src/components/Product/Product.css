@@ -5,6 +5,7 @@
   background-color: #f4f4f4;
   padding: .8rem;
   box-shadow: 0 .1rem .4rem black;
+  
 }
 
 .product-container > img{
@@ -44,9 +45,3 @@
   color: #171717;
 }
 
-@media screen and (min-width: 400px){
-  .product-container{
-    max-width: 350px;
-    margin: 0 auto;
-  }
-}

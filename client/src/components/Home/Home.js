@@ -33,10 +33,15 @@ const Home = () => {
     );
   });
 
+  const loading = status === "loading" ? <div>Loading Content</div> : null;
+
   return (
     <div className="home-container">
       <h2 className="home-title">Latest Products</h2>
-      <div className="product-display">{productsList}</div>
+      <div className="product-display">
+        {loading}
+        {productsList}
+      </div>
     </div>
   );
 };
