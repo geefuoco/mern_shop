@@ -14,8 +14,7 @@ productsController.index = async (req, res, next) => {
 
 productsController.show = async (req, res, next) => {
   try {
-    const product = await Product.findbyId(req.params.id);
-
+    const product = await Product.findById(req.params.id);
     res.json(product);
   } catch (error) {
     console.error(error);
