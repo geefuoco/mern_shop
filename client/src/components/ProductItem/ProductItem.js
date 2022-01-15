@@ -1,15 +1,40 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { getCartItems } from "../../redux/slices/cartSlice";
 import { item, getProduct } from "../../redux/slices/productSlice";
 import "./ProductItem.css";
 
 const ProductItem = () => {
   const itemState = useSelector(item);
   const dispatch = useDispatch();
+  const button = useRef();
 
   useEffect(() => {
     dispatch(getProduct());
-  }, [itemState, dispatch]);
+  }, [dispatch]);
+
+  const addToCart = async () => {
+    toggleButton();
+    try {
+      const options = {
+        method: "post",
+        body: JSON.stringify(itemState),
+        credentials: "include",
+      };
+      await fetch(
+        `${process.env.REACT_APP_HOSTNAME}:4000/api/cart/add/${itemState._id}`,
+        options
+      );
+      dispatch(getCartItems());
+    } catch (error) {
+      console.error(`Could not add item to cart: ${error}`);
+    }
+  };
+
+  const toggleButton = () => {
+    button.current.disabled = !button.current.disabled;
+    button.current.innerText = "Item Added";
+  };
 
   const product = (
     <div className="product-item-container">
@@ -21,7 +46,11 @@ const ProductItem = () => {
           Stock: {itemState.countInStock}
         </div>
         <div className="product-item-price">{itemState.price}</div>
-        <button className="product-item-button">
+        <button
+          ref={button}
+          className="product-item-button"
+          onClick={addToCart}
+        >
           Add to Cart <i className="fas fa-shopping-cart"></i>
         </button>
       </div>

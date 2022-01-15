@@ -18,7 +18,7 @@ const Home = () => {
     if (status === "idle") {
       dispatch(getProducts());
     }
-  }, [status, dispatch, products]);
+  }, [status, dispatch]);
 
   const productsList = products.map((obj) => {
     return (
