@@ -1,10 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+const url = `${process.env.REACT_APP_HOSTNAME}:4000/api/products`;
+
 export const getProducts = createAsyncThunk(
   "products/getProducts",
   async () => {
     try {
-      const response = await fetch(`http://192.168.2.239:4000/api/products/`);
+      const response = await fetch(url, {
+        credentials: "include",
+      });
       const data = await response.json();
       return data;
     } catch (error) {
@@ -17,7 +21,8 @@ export const getProducts = createAsyncThunk(
 export const getProduct = createAsyncThunk("products/getProduct", async () => {
   try {
     const response = await fetch(
-      `http://192.168.2.239:4000/api${window.location.pathname}`
+      `${process.env.REACT_APP_HOSTNAME}:4000/api${window.location.pathname}`,
+      { credentials: "include" }
     );
     return response.json();
   } catch (error) {
