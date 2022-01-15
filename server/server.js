@@ -4,6 +4,7 @@ import cors from "cors";
 import { connectToDatabase } from "./config/database";
 import productRouter from "./routes/product.router";
 import cartRouter from "./routes/cart.router";
+import stripeRouter from "./routes/stripe.router";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
@@ -29,15 +30,15 @@ app.use(
 );
 
 //session can be set in 'locals' of response of any middleware
-app.use((req, res, next) => {
+app.use("/api/cart", (req, res, next) => {
   if (!req.session.cart) {
     req.session.cart = [];
-    req.session.save;
   }
   next();
 });
 app.use("/api/products", productRouter);
 app.use("/api/cart", cartRouter);
+// app.use(stripeRouter);
 
 app.use((req, res, next) => {
   res.status(404);
