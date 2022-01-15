@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getCartItems } from "../../redux/slices/cartSlice";
 
-const CartItem = ({ img, id, name, quantity, price }) => {
-  const quantityElements = [];
+const CartItem = ({ img, id, name, maxStock, price, amount }) => {
   const dispatch = useDispatch();
 
   const removeFromCart = async () => {
@@ -22,10 +21,6 @@ const CartItem = ({ img, id, name, quantity, price }) => {
     }
   };
 
-  for (let i = 1; i < quantity; i++) {
-    quantityElements.push(<option value={i}>{i}</option>);
-  }
-
   return (
     <div className="cart-item-container">
       <img src={img} alt="could not load" />
@@ -35,14 +30,22 @@ const CartItem = ({ img, id, name, quantity, price }) => {
         </Link>
         <div className="cart-item-quantity">
           <div>
-            Qty:
-            <select name="quantity">{quantityElements}</select>
+            <label htmlFor="quantity">Qty:</label>
+            <button>-</button>
+            <input
+              type="number"
+              readOnly
+              min="1"
+              max={maxStock}
+              value={amount}
+            />
+            <button>+</button>
           </div>
           <button onClick={removeFromCart}>
             <i className="fas fa-trash-can"></i>
           </button>
         </div>
-        <div className="cart-item-price">{price}</div>
+        <div className="cart-item-price">{(price * amount).toFixed(2)}</div>
       </div>
     </div>
   );

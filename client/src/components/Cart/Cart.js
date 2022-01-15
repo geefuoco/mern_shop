@@ -22,8 +22,9 @@ const Cart = () => {
             img={obj.imageUrl}
             key={`${obj._id}_${Date.now()}`}
             id={obj._id}
+            amount={obj.amount}
             name={obj.name}
-            quantity={obj.countInStock}
+            maxStock={obj.countInStock}
             price={obj.price}
           />
         );
@@ -37,13 +38,20 @@ const Cart = () => {
       <div className="cart-items">{displayElements}</div>
 
       <div className="checkout">
-        <div>
-          <p>Total:</p>
-          <p>{totalPrice.toFixed(2)}</p>
-        </div>
-        <div>
-          <button>Proceed to checkout</button>
-        </div>
+        <form action="/create-checkout-session" mehthod="post">
+          <div>
+            <p>Total:</p>
+            <input
+              type="number"
+              value={totalPrice.toFixed(2)}
+              name="price"
+              readOnly
+            />
+          </div>
+          <div>
+            <button>Proceed to checkout</button>
+          </div>
+        </form>
       </div>
     </div>
   );

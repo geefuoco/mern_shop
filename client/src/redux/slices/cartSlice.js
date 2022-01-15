@@ -15,10 +15,20 @@ export const getCartItems = createAsyncThunk("cart/getCartItems", async () => {
 const calculateTotal = (arr) => {
   try {
     return arr.reduce((pre, cur) => {
-      return pre + cur.price;
+      return pre + cur.price * cur.amount;
     }, 0);
   } catch (error) {
     console.error(`Error calculating price total: ${error}`);
+  }
+};
+
+const calculateQuantity = (arr) => {
+  try {
+    return arr.reduce((pre, cur) => {
+      return pre + cur.amount;
+    }, 0);
+  } catch (error) {
+    console.error(`Error calculating amount: ${error}`);
   }
 };
 
@@ -45,7 +55,7 @@ const cartSlice = createSlice({
       })
       .addCase(getCartItems.fulfilled, (state, action) => {
         state.items.items = [...action.payload];
-        state.quantity.quantity = action.payload.length;
+        state.quantity.quantity = calculateQuantity(action.payload);
         state.price.total = calculateTotal(action.payload);
         state.status = "succeeded";
       })

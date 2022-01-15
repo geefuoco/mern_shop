@@ -1,8 +1,5 @@
-.cart-container{
-  margin: 1rem;
-}
 
-.checkout{
+.checkout form{
   width: 90%;
   margin: 1rem auto;
   display: flex;
@@ -13,6 +10,7 @@
   gap: 1.5rem;
 }
 
+
 .checkout div:first-of-type{
   display: flex;
   justify-content: space-between;
@@ -20,6 +18,13 @@
 
 .checkout div>p{
   font-weight: bold;
+}
+
+.checkout input{
+  font-weight: bold;
+  font-size: 1.3rem;
+  text-align: end;
+  width: 100px;
 }
 
 .checkout button{
@@ -35,7 +40,7 @@
 }
 
 @media screen and (min-width: 960px){
-  .checkout{
+  .checkout form{
     margin: none;
     flex: 1 1 30%;
     max-height: 150px;
@@ -47,5 +52,6 @@
 
   .cart-container{
     display: flex;
+    margin: 1rem;
   }
 }

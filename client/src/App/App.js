@@ -6,25 +6,31 @@ import Backdrop from "../components/Backdrop/Backdrop";
 import Home from "../components/Home/Home";
 import ProductItem from "../components/ProductItem/ProductItem";
 import Cart from "../components/Cart/Cart";
-import { Provider } from "react-redux";
-import store from "../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getCartItems, quantity } from "../redux/slices/cartSlice";
 
 function App() {
+  const dispatch = useDispatch();
+  const cartQuantity = useSelector(quantity);
+
+  useEffect(() => {
+    dispatch(getCartItems());
+  }, [dispatch, cartQuantity]);
+
   return (
-    <Provider store={store}>
-      <Router>
-        <main>
-          <Navbar />
-          <Sidebar />
-          <Backdrop />
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/products/:id" element={<ProductItem />}></Route>
-            <Route path="/cart" element={<Cart />}></Route>
-          </Routes>
-        </main>
-      </Router>
-    </Provider>
+    <Router>
+      <main>
+        <Navbar cartQuantity={cartQuantity} />
+        <Sidebar cartQuantity={cartQuantity} />
+        <Backdrop />
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/products/:id" element={<ProductItem />}></Route>
+          <Route path="/cart" element={<Cart />}></Route>
+        </Routes>
+      </main>
+    </Router>
   );
 }
 

@@ -12,10 +12,13 @@
   justify-content: space-between;
 }
 
-.cart-item-quantity select{
-  outline: solid 1px black;
-  height: 20px;
-  width: 50px;
+.cart-item-quantity div:first-of-type{
+  display: flex;
+}
+
+.cart-item-quantity input{
+  text-align: center;
+  width: 40px;
 }
 
 .cart-item-container img{
@@ -54,5 +57,12 @@
   .cart-item-container{
     max-width: 900px;
 
+  }
+}
+
+@media screen and (max-width: 450px){
+  .cart-item-container{
+    width: 100%;
+    margin: 0;
   }
 }
