@@ -7,5 +7,6 @@ router.post("/add/:id", cartController.addToCart);
 router.get("/delete/:id", cartController.deleteItem);
 router.get("/increment/:id", cartController.incrementItem);
 router.get("/decrement/:id", cartController.decrementItem);
+router.get("/deleteAll", cartController.emptyCart);
 
 export default router;

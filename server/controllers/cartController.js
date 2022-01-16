@@ -77,4 +77,11 @@ cartController.deleteItem = async (req, res, next) => {
   } catch (error) {}
 };
 
+cartController.emptyCart = async (req, res, next) => {
+  try {
+    req.session.cart = null;
+    res.status(200).end();
+  } catch (error) {}
+};
+
 export default cartController;

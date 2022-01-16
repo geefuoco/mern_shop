@@ -33,12 +33,31 @@ const Cart = () => {
       <h1>Your cart is empty</h1>
     );
 
+  const handleSubmit = async (ev) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_HOSTNAME}:4000/create-checkout-session`,
+        {
+          method: "post",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(cartItems),
+        }
+      );
+      const data = await response.json();
+      window.location.href = data.url;
+    } catch (error) {}
+  };
+
   return (
     <div className="cart-container">
       <div className="cart-items">{displayElements}</div>
 
       <div className="checkout">
-        <form action="/create-checkout-session" mehthod="post">
+        <form>
           <div>
             <p>Total:</p>
             <input
@@ -49,7 +68,9 @@ const Cart = () => {
             />
           </div>
           <div>
-            <button>Proceed to checkout</button>
+            <button type="button" onClick={handleSubmit}>
+              Proceed to checkout
+            </button>
           </div>
         </form>
       </div>
