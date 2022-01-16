@@ -19,6 +19,42 @@ cartController.addToCart = async (req, res, next) => {
   } catch (error) {}
 };
 
+cartController.incrementItem = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    if (containsObject(req.session.cart, id)) {
+      const item = req.session.cart.find((v) => v._id === id);
+      const newQuantity = item.amount + 1;
+      if (newQuantity <= item.countInStock) {
+        ++item.amount;
+        res.status(200).end();
+      } else {
+        res.send({ error: "Cannot add more items than there are in stock." });
+      }
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+cartController.decrementItem = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    if (containsObject(req.session.cart, id)) {
+      const item = req.session.cart.find((v) => v._id === id);
+      const newQuantity = item.amount - 1;
+      if (newQuantity >= 1) {
+        --item.amount;
+        res.status(200).end();
+      } else {
+        res.send({ error: "Cannot remove item." });
+      }
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const containsObject = (arr, prop) => {
   return arr.filter((o) => o._id === prop).length !== 0;
 };

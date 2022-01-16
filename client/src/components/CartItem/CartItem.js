@@ -21,6 +21,34 @@ const CartItem = ({ img, id, name, maxStock, price, amount }) => {
     }
   };
 
+  const increment = async () => {
+    try {
+      await fetch(
+        `${process.env.REACT_APP_HOSTNAME}:4000/api/cart/increment/${id}`,
+        {
+          credentials: "include",
+        }
+      );
+      dispatch(getCartItems());
+    } catch (error) {
+      console.error(`Could not increment cart item. ${error}`);
+    }
+  };
+
+  const decrement = async () => {
+    try {
+      await fetch(
+        `${process.env.REACT_APP_HOSTNAME}:4000/api/cart/decrement/${id}`,
+        {
+          credentials: "include",
+        }
+      );
+      dispatch(getCartItems());
+    } catch (error) {
+      console.error(`Could not decrement cart item ${error}`);
+    }
+  };
+
   return (
     <div className="cart-item-container">
       <img src={img} alt="could not load" />
@@ -31,7 +59,9 @@ const CartItem = ({ img, id, name, maxStock, price, amount }) => {
         <div className="cart-item-quantity">
           <div>
             <label htmlFor="quantity">Qty:</label>
-            <button>-</button>
+            <button onClick={decrement} disabled={amount === 1}>
+              -
+            </button>
             <input
               type="number"
               readOnly
@@ -39,13 +69,15 @@ const CartItem = ({ img, id, name, maxStock, price, amount }) => {
               max={maxStock}
               value={amount}
             />
-            <button>+</button>
+            <button onClick={increment} disabled={amount === maxStock}>
+              +
+            </button>
           </div>
           <button onClick={removeFromCart}>
             <i className="fas fa-trash-can"></i>
           </button>
         </div>
-        <div className="cart-item-price">{(price * amount).toFixed(2)}</div>
+        <div className="cart-item-price">{price}</div>
       </div>
     </div>
   );
