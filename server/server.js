@@ -38,7 +38,7 @@ app.use("/api/cart", (req, res, next) => {
 });
 app.use("/api/products", productRouter);
 app.use("/api/cart", cartRouter);
-// app.use(stripeRouter);
+app.use(stripeRouter);
 
 app.use((req, res, next) => {
   res.status(404);
