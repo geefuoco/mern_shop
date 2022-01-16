@@ -9,6 +9,8 @@ import Cart from "../components/Cart/Cart";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getCartItems, quantity } from "../redux/slices/cartSlice";
+import Success from "../components/Order/Success/Success";
+import Cancel from "../components/Order/Cancel/Cancel";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +30,8 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/products/:id" element={<ProductItem />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
+          <Route path="/success" element={<Success />}></Route>
+          <Route path="/cancel" element={<Cancel />}></Route>
         </Routes>
       </main>
     </Router>
