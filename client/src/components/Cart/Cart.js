@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./Cart.css";
 import { items, price } from "../../redux/slices/cartSlice";
@@ -9,6 +9,7 @@ const Cart = () => {
   const cartItems = useSelector(items);
   const totalPrice = useSelector(price);
   const dispatch = useDispatch();
+  const button = useRef();
 
   useEffect(() => {
     dispatch(getCartItems());
@@ -34,6 +35,8 @@ const Cart = () => {
     );
 
   const handleSubmit = async (ev) => {
+    console.log(button);
+    disableButton();
     try {
       const response = await fetch(
         `${process.env.REACT_APP_HOSTNAME}:4000/create-checkout-session`,
@@ -52,6 +55,11 @@ const Cart = () => {
     } catch (error) {}
   };
 
+  const disableButton = () => {
+    button.current.disabled = !button.current.disabled;
+    button.current.innerText = "Processing...";
+  };
+
   return (
     <div className="cart-container">
       <div className="cart-items">{displayElements}</div>
@@ -68,7 +76,7 @@ const Cart = () => {
             />
           </div>
           <div>
-            <button type="button" onClick={handleSubmit}>
+            <button type="button" onClick={handleSubmit} ref={button}>
               Proceed to checkout
             </button>
           </div>
