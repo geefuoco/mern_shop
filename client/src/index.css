@@ -23,3 +23,16 @@ img {
   width: 100%;
   object-fit: contain;
 }
+
+.formfield{
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+
+.formfield input{
+  box-shadow: 0 .2rem .4rem grey;
+  height: 40px;
+  padding: .4rem;
+  font-size: 1.2rem;
+}
