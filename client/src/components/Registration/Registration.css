@@ -1,0 +1,30 @@
+.registration-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.registration-container h2{
+  padding: 1rem;
+}
+
+.registration-container form{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  gap: 2rem;
+  box-shadow: 0 .2rem .4rem grey;
+  padding: 1rem;
+}
+
+
+.register-button{
+  cursor: pointer;
+  padding: 1rem;
+  background-color: #141414;
+  color: white;
+  font-size: 1.4rem;
+}

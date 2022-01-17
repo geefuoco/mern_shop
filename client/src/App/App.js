@@ -11,20 +11,25 @@ import { useEffect } from "react";
 import { getCartItems, quantity } from "../redux/slices/cartSlice";
 import Success from "../components/Order/Success/Success";
 import Cancel from "../components/Order/Cancel/Cancel";
+import Registration from "../components/Registration/Registration";
+import Login from "../components/Login/Login";
+import { getUser } from "../redux/slices/authSlice";
 
 function App() {
   const dispatch = useDispatch();
   const cartQuantity = useSelector(quantity);
+  const user = useSelector((state) => state.auth.value);
 
   useEffect(() => {
     dispatch(getCartItems());
-  }, [dispatch, cartQuantity]);
+    dispatch(getUser());
+  }, [dispatch, cartQuantity, user]);
 
   return (
     <Router>
       <main>
-        <Navbar cartQuantity={cartQuantity} />
-        <Sidebar cartQuantity={cartQuantity} />
+        <Navbar cartQuantity={cartQuantity} loggedIn={user} />
+        <Sidebar cartQuantity={cartQuantity} loggedIn={user} />
         <Backdrop />
         <Routes>
           <Route path="/" element={<Home />}></Route>
@@ -32,6 +37,8 @@ function App() {
           <Route path="/cart" element={<Cart />}></Route>
           <Route path="/success" element={<Success />}></Route>
           <Route path="/cancel" element={<Cancel />}></Route>
+          <Route path="/user/signin" element={<Login />}></Route>
+          <Route path="/user/signup" element={<Registration />}></Route>
         </Routes>
       </main>
     </Router>
