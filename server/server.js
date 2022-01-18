@@ -37,14 +37,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(csrfProtection);
 
-app.use((req, res, next) => {
+app.use("/api/token", (req, res, next) => {
   if (!req.session.token) {
     req.session.token = req.csrfToken();
   }
-  next();
+  res.status(200).json({ csrfToken: req.session.token });
 });
 
-//session can be set in 'locals' of response of any middleware
 app.use("/api/cart", (req, res, next) => {
   if (!req.session.cart) {
     req.session.cart = [];
@@ -54,7 +53,7 @@ app.use("/api/cart", (req, res, next) => {
 app.use("/api/products", productRouter);
 app.use("/api/cart", cartRouter);
 app.use(stripeRouter);
-app.use("/user", userRouter);
+app.use("/api/user", userRouter);
 
 app.use((req, res, next) => {
   res.status(404);
