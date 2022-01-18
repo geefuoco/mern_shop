@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getUser = createAsyncThunk("auth/user", async () => {
   try {
-    const url = `${process.env.REACT_APP_HOSTNAME}:4000/user/authorize`;
+    const url = `${process.env.REACT_APP_HOSTNAME}:4000/api/user/authorize`;
     const options = {
       credentials: "include",
     };

@@ -1,7 +1,6 @@
 import passport from "passport";
 import local from "passport-local";
 import User from "../models/User";
-import { body, validationResult } from "express-validator";
 
 const LocalStrategy = local.Strategy;
 
@@ -10,20 +9,7 @@ const customFields = {
   passwordField: "password",
 };
 
-const validateEmailAndPassword = (done) => {
-  body("email").isEmail().notEmpty();
-  body("password").isLength({ min: 8 });
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    done({
-      message:
-        "Please check that your form fields are filled, and your password has a minimum length of 8",
-    });
-  }
-};
-
 const verifyCallback = async (email, password, done) => {
-  validateEmailAndPassword(done);
   try {
     User.findOne({ email: email }, (err, user) => {
       if (err) return done(err);

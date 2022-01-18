@@ -1,10 +1,24 @@
 import { Router } from "express";
 import passport from "passport";
+import { body, validationResult } from "express-validator";
 const router = Router();
+
 require("dotenv").config();
 
+const validateEmailAndPassword = (req, next) => {
+  body("email").isEmail().notEmpty();
+  body("password").isLength({ min: 8 });
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    next({
+      message:
+        "Please check that your form fields are filled, and your password has a minimum length of 8",
+    });
+  }
+};
+
 router.get(["/signup", "/signin", "/logout"], (req, res, next) => {
-  res.status(200).send({ csrfToken: req.session.token });
+  res.status(200).end();
 });
 
 router.post(
@@ -15,19 +29,20 @@ router.post(
   })
 );
 
-router.post(
-  "/signup",
+router.post("/signup", (req, res, next) => {
+  validateEmailAndPassword(req, next);
   passport.authenticate("local_signup", {
     successRedirect: `${process.env.HOSTNAME}:3000/`,
     failureRedirect: `${process.env.HOSTNAME}:3000/user/signup`,
-  })
-);
+  })(req, res, next);
+});
 
 router.post("/logout", (req, res, next) => {
   if (req.user) {
+    req.session.cart = [];
     req.logout();
-    // redirect doesnt work so send back URL
-    //or in this case, just tell react to go to home page
+    // redirect doesnt work due to CORS issues
+    //change url on front end side
     res.status(200).end();
   }
 });
