@@ -1,24 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggle } from "../../redux/slices/navbarSlice";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import { setToken } from "../../redux/slices/csrfSlice";
-import { getToken } from "../../Util/getToken";
 
 const Navbar = ({ cartQuantity, loggedIn }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.csrf.value);
 
-  useEffect(() => {
-    const data = getToken(`${process.env.REACT_APP_HOSTNAME}:4000/user/logout`);
-    data.then((value) => {
-      dispatch(setToken(value.csrfToken));
-    });
-  }, [dispatch]);
-
   const signOut = () => {
-    const url = `${process.env.REACT_APP_HOSTNAME}:4000/user/logout`;
+    const url = `${process.env.REACT_APP_HOSTNAME}:4000/api/user/logout`;
     const options = {
       method: "post",
       headers: {
@@ -41,12 +32,20 @@ const Navbar = ({ cartQuantity, loggedIn }) => {
       Log out
     </button>
   ) : (
-    <a
-      className="nav-link"
-      href={`${process.env.REACT_APP_HOSTNAME}:3000/user/signin`}
-    >
-      Login
-    </a>
+    <>
+      <a
+        className="nav-link"
+        href={`${process.env.REACT_APP_HOSTNAME}:3000/user/signin`}
+      >
+        Login
+      </a>
+      <a
+        className="nav-link"
+        href={`${process.env.REACT_APP_HOSTNAME}:3000/user/signup`}
+      >
+        Sign Up
+      </a>
+    </>
   );
 
   return (

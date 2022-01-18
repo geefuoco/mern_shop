@@ -14,6 +14,8 @@ import Cancel from "../components/Order/Cancel/Cancel";
 import Registration from "../components/Registration/Registration";
 import Login from "../components/Login/Login";
 import { getUser } from "../redux/slices/authSlice";
+import { setToken } from "../redux/slices/csrfSlice";
+import { getToken } from "../Util/getToken";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +25,8 @@ function App() {
   useEffect(() => {
     dispatch(getCartItems());
     dispatch(getUser());
+    const data = getToken(`${process.env.REACT_APP_HOSTNAME}:4000/api/token`);
+    data.then((value) => dispatch(setToken(value.csrfToken)));
   }, [dispatch, cartQuantity, user]);
 
   return (

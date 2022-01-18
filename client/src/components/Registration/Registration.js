@@ -1,21 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import "./Registration.css";
-import { useDispatch, useSelector } from "react-redux";
-import { setToken } from "../../redux/slices/csrfSlice";
-import { getToken } from "../../Util/getToken";
+import { useSelector } from "react-redux";
 
 const Registration = () => {
-  const dispatch = useDispatch();
   const token = useSelector((state) => state.csrf.value);
   const password = useRef();
   const passwordConfirm = useRef();
-
-  useEffect(() => {
-    const data = getToken(`${process.env.REACT_APP_HOSTNAME}:4000/user/signup`);
-    data.then((value) => {
-      dispatch(setToken(value.csrfToken));
-    });
-  }, [dispatch]);
 
   const handleSubmit = (ev) => {
     if (password.current.value !== passwordConfirm.current.value) {
@@ -28,7 +18,7 @@ const Registration = () => {
       <h2>User Registration</h2>
       <form
         onSubmit={handleSubmit}
-        action={`${process.env.REACT_APP_HOSTNAME}:4000/user/signup`}
+        action={`${process.env.REACT_APP_HOSTNAME}:4000/api/user/signup`}
         method="post"
       >
         <div className="formfield">

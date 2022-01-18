@@ -6,6 +6,7 @@ import "./ProductItem.css";
 
 const ProductItem = () => {
   const itemState = useSelector(item);
+  const token = useSelector((state) => state.csrf.value);
   const dispatch = useDispatch();
   const button = useRef();
 
@@ -18,7 +19,12 @@ const ProductItem = () => {
     try {
       const options = {
         method: "post",
-        body: JSON.stringify(itemState),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": `${process.env.REACT_APP_HOSTNAME}`,
+        },
+        body: JSON.stringify({ _csrf: token }),
         credentials: "include",
       };
       await fetch(
