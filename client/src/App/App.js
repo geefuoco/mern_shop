@@ -16,6 +16,7 @@ import Login from "../components/Login/Login";
 import { getUser } from "../redux/slices/authSlice";
 import { setToken } from "../redux/slices/csrfSlice";
 import { getToken } from "../Util/getToken";
+import UserOrder from "../components/Order/UserOrder/UserOrder";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function App() {
           <Route path="/cancel" element={<Cancel />}></Route>
           <Route path="/user/signin" element={<Login />}></Route>
           <Route path="/user/signup" element={<Registration />}></Route>
+          <Route path="/user/orders" element={<UserOrder />}></Route>
         </Routes>
       </main>
     </Router>

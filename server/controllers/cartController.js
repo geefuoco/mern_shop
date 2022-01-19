@@ -1,4 +1,5 @@
 import { Product } from "../models/Product";
+import User from "../models/User";
 const cartController = {};
 
 cartController.addToCart = async (req, res, next) => {
@@ -79,7 +80,12 @@ cartController.deleteItem = async (req, res, next) => {
 
 cartController.emptyCart = async (req, res, next) => {
   try {
-    req.session.cart = null;
+    if (req.user) {
+      const user = await User.findById(req.user._id);
+      user.items = [];
+      user.save();
+    }
+    req.session.cart = [];
     res.status(200).end();
   } catch (error) {}
 };

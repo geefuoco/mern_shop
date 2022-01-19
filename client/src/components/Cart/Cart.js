@@ -8,6 +8,7 @@ import CartItem from "../CartItem/CartItem";
 const Cart = () => {
   const cartItems = useSelector(items);
   const totalPrice = useSelector(price);
+  const token = useSelector((state) => state.csrf.value);
   const dispatch = useDispatch();
   const button = useRef();
 
@@ -35,7 +36,6 @@ const Cart = () => {
     );
 
   const handleSubmit = async (ev) => {
-    console.log(button);
     disableButton();
     try {
       const response = await fetch(
@@ -47,7 +47,11 @@ const Cart = () => {
             "Content-Type": "application/json",
           },
           credentials: "include",
-          body: JSON.stringify(cartItems),
+          body: JSON.stringify({
+            cartItems: cartItems,
+            _csrf: token,
+            total: totalPrice.toFixed(2),
+          }),
         }
       );
       const data = await response.json();

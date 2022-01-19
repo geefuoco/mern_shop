@@ -1,14 +1,18 @@
 import Stripe from "stripe";
+import Order from "../models/Order";
 require("dotenv").config();
 const stripe = new Stripe(process.env.STRIPE_KEY);
 
 const stripeController = {};
+let cartItems;
+let total;
 
 stripeController.createCheckoutSession = async (req, res, next) => {
   try {
     const host = process.env.HOSTNAME;
 
-    const cartItems = req.body;
+    cartItems = req.body.cartItems;
+    total = req.body.total;
 
     const lineItems = cartItems.map((obj) => {
       return {
@@ -42,13 +46,26 @@ stripeController.createCheckoutSession = async (req, res, next) => {
   }
 };
 
+// Currently getting a content length error in browser,
+//Order validation error for date, and email for some reason
 stripeController.getCheckoutSession = async (req, res, next) => {
   try {
     const { sessionId } = req.query;
     const session = await stripe.checkout.sessions.retrieve(sessionId);
     //Save the order here ? into an order model
+    if (cartItems) {
+      const order = Order();
+      order.user_id = req.user._id || null;
+      order.date = new Date();
+      order.email = session.customer_details.email || "no email provided";
+      order.total = total;
+      order.items = cartItems.map((obj) => obj._id);
+      order.save();
+    }
     res.send(session);
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export default stripeController;

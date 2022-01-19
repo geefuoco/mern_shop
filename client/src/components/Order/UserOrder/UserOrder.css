@@ -1,0 +1,24 @@
+.order-container{
+  margin: 1rem auto;
+  max-width: 900px;
+}
+
+.order{
+  box-shadow: 0 .2rem .4rem grey;
+  padding: .8rem;
+}
+
+.order-container h6{
+  font-size: 1.2rem;
+  padding: .5rem;
+}
+
+.order-title{
+  font-size: 1.5rem;
+}
+
+.orders{
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}

@@ -1,16 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { getSession } from "../../../redux/slices/orderSlice";
 import { getCartItems } from "../../../redux/slices/cartSlice";
+import { getSession } from "../../../redux/slices/sessionSlice";
 import "./Success.css";
 
 const Success = () => {
   const location = useLocation();
   const sessionId = location.search.replace("?sessionId=", "");
   const dispatch = useDispatch();
-  // const session = useSelector((state) => state.order.value);
-  // if you decide to use the session object later on
 
   useEffect(() => {
     async function emptyCart() {

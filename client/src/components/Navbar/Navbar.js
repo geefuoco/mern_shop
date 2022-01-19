@@ -28,9 +28,17 @@ const Navbar = ({ cartQuantity, loggedIn }) => {
   };
 
   const button = loggedIn ? (
-    <button className="nav-link" onClick={signOut}>
-      Log out
-    </button>
+    <>
+      <a
+        href={`${process.env.REACT_APP_HOSTNAME}:3000/user/orders`}
+        className="nav-link"
+      >
+        Orders
+      </a>
+      <button className="nav-link" onClick={signOut}>
+        Log out
+      </button>
+    </>
   ) : (
     <>
       <a

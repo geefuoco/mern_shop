@@ -1,35 +1,38 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const getSession = createAsyncThunk("order/getSession", async (url) => {
-  const response = await fetch(
-    `${process.env.REACT_APP_HOSTNAME}:4000/checkout-session?sessionId=${url}`
-  );
-  return response.json();
+export const getOrder = createAsyncThunk("order/getOrder", async () => {
+  try {
+    const url = `${process.env.REACT_APP_HOSTNAME}:4000/api/user/orders`;
+    const response = await fetch(url, { credentials: "include" });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 const orderSlice = createSlice({
   name: "order",
   initialState: {
-    status: "idle",
     error: null,
-    value: {},
+    status: "idle",
+    value: [],
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getSession.pending, (state) => {
+      .addCase(getOrder.pending, (state) => {
         state.status = "pending";
       })
-      .addCase(getSession.fulfilled, (state, action) => {
+      .addCase(getOrder.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.value = action.payload;
+        state.value = action.payload.orders;
       })
-      .addCase(getSession.rejected, (state, action) => {
+      .addCase(getOrder.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error;
       });
   },
 });
 
-export const { setSession } = orderSlice.actions;
 export default orderSlice.reducer;

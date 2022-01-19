@@ -1,0 +1,22 @@
+.orderitem-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.orderitem-container div{
+  display: flex;
+  flex-direction: column;
+}
+
+.orderitem-img{
+  height: 90px;
+}
+
+.orderitem-price {
+  font-weight: bold;
+}
+
+.orderitem-name{
+  font-size: 1.2rem;
+}
+

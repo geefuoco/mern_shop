@@ -32,9 +32,16 @@ const Sidebar = ({ cartQuantity, loggedIn }) => {
   };
 
   const button = loggedIn ? (
-    <div className="sidebar-link">
-      <button onClick={signOut}>Log out</button>
-    </div>
+    <>
+      <div className="sidebar-link">
+        <a href={`${process.env.REACT_APP_HOSTNAME}:3000/user/orders`}>
+          Orders
+        </a>
+      </div>
+      <div className="sidebar-link">
+        <button onClick={signOut}>Log out</button>
+      </div>
+    </>
   ) : (
     <>
       <div className="sidebar-link">

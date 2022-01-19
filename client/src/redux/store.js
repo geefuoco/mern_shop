@@ -5,6 +5,7 @@ import cartReducer from "./slices/cartSlice";
 import orderReducer from "./slices/orderSlice";
 import csrfReducer from "./slices/csrfSlice";
 import authSlice from "./slices/authSlice";
+import sessionSlice from "./slices/sessionSlice";
 
 export default configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export default configureStore({
     products: productReducer,
     cart: cartReducer,
     order: orderReducer,
+    session: sessionSlice,
     csrf: csrfReducer,
     auth: authSlice,
   },

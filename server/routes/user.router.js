@@ -10,4 +10,6 @@ router.post("/logout", usersController.logout);
 
 router.get("/authorize", usersController.authorize);
 
+router.get("/orders", usersController.orders);
+
 export default router;

@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 const UserSchema = new Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
+  items: [{ type: Object }],
 });
 
 UserSchema.methods.hashPassword = (password) => {
